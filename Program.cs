@@ -1,11 +1,17 @@
-﻿SearchDamageExe(@"./");
+﻿Console.WriteLine("Starting Process...");
 
+SearchDamageExe(@"./");
+
+Console.WriteLine("All process done, press enter to exit");
+Console.ReadLine();
 
 const long corruptedFileSize = 522;
 
 
 static void SearchDamageExe(string path)
 {
+
+    Console.WriteLine($"Searching in {path}");
 
     //Save the current directory info
     DirectoryInfo currentDirectory = new DirectoryInfo(path);
@@ -26,16 +32,25 @@ static void SearchDamageExe(string path)
 
         if (IsAffected(file, currentDirectory.EnumerateFiles(), out virusFile))
         {
+
+            Console.WriteLine($"I FOUND AN INFECTED FILE! ({virusFile})");
+
             DeleteAndRestore(file, virusFile);
         }
     }
+
+    Console.WriteLine($"All done at {path}");
 }
 
 static void DeleteAndRestore(FileInfo originalFile, FileInfo virusFile)
 {
     string originalName = virusFile.FullName;
+
     virusFile.Delete();
+    Console.WriteLine($"Virus file deleted :)");
+
     originalFile.MoveTo(originalName);
+    Console.Write("Original file restored :)");
 }
 
 static bool IsAffected(FileInfo originalFile, IEnumerable<FileInfo> files, out FileInfo virusFile)
