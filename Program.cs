@@ -1,6 +1,6 @@
 ﻿Console.WriteLine("Starting Process...");
 
-SearchDamageExe(@"./");
+SearchDamageExe(@"../");
 
 Console.WriteLine("All process done, press enter to exit");
 Console.ReadLine();
